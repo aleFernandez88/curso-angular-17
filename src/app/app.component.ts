@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TodoComponent } from './pages/todo/todo.component';
 import { TODO_DATA } from '../assets/todo';
@@ -18,14 +18,22 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'curso-angular-17';
-  todoData: NTodo.TodoData[] = TODO_DATA;
+  todoData: NTodo.TodoData[] = TODO_DATA.filter(item => item.id < 3);
 
+  @ViewChild(TodoComponent) todo?: TodoComponent;
 
+  constructor() { }
   getTodoInfo(val: NTodo.TodoData) {
     console.log('val: ', val)
   }
 
   orderData() {
     this.todoData.sort((a, b) => a.priority - b.priority)
+  }
+
+  selectTodo() {
+    const todo = document.querySelector('app-todo');
+    console.log(todo);
+
   }
 }
